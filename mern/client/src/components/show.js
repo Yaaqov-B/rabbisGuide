@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
-import Rabbi from "./entity";
+import Rabbi from "./entity-view";
 
-export default function Edit() {
+export default function Show() {
 
   const [form, setForm] = useState({});
 
@@ -34,38 +34,13 @@ export default function Edit() {
   }, [params.id, navigate]);
 
 
-  async function onSubmit(e) {
-    e.preventDefault();
-    const editedPerson = {
-      name: form.name,
-      position: form.position,
-      level: form.level,
-      born: form.born,
-      books: form.books,
-      students: form.students,
-    };
-
-    // This will send a post request to update the data in the database.
-    await fetch(`http://localhost:5050/record/${params.id}`, {
-      method: "PATCH",
-      body: JSON.stringify(editedPerson),
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    });
-
-    navigate("/");
-  }
-
   const myObject = {
     form: form,
     setForm: setForm,
-    onSubmit: onSubmit,
-    title: "עדכן רשומה"
   };
   return (
       <div>
-        <h3>עדכן רשומה</h3>
+        <h3> רשומה</h3>
         <Rabbi myProp={myObject}/>
       </div>
 

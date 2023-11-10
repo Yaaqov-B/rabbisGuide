@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {useNavigate } from "react-router";
-import Rabbi from "./entity";
+import Rabbi from "./entity-play";
 
 export default function Create() {
     const [form, setForm] = useState({
@@ -9,6 +9,7 @@ export default function Create() {
         level: "",
         born: "",
         books: [],
+        students: [],
     });
 
     const navigate = useNavigate();
@@ -31,7 +32,7 @@ export default function Create() {
                 window.alert(error);
             });
 
-        setForm({ name: "", position: "", level: "" , born: "" ,books: []});
+        setForm({ name: "", position: "", level: "" , born: "" ,books: [], students: []});
         navigate("/");
     }
 

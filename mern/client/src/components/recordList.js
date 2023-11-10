@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 
 const Record = (props) => (
     <tr>
-        <td>{props.record.name}</td>
+        <td>
+            <Link className="btn btn-link" to={`/show/${props.record._id}`}> {props.record.name}</Link> |
+        </td>
         <td>{props.record.position}</td>
         <td>{props.record.level}</td>
         <td>{props.record.born}</td>
         <td>
             {props.record.books ?
-                // className="w-50"
                 <ul>
                     {props.record.books.map(book => (
                         <li key={book.title}>
@@ -19,6 +20,18 @@ const Record = (props) => (
                                 id="book"
                                 value={book.title}
                             />
+                        </li>
+                    ))}
+                </ul> : ""
+            }
+        </td>
+        <td>
+            {props.students ?
+                <ul>
+                    {props.students.map(student => (
+
+                        <li key={student._id}>
+                            <Link className="btn btn-link" to={`/show/${student._id}`}>{student.name}</Link> |
                         </li>
                     ))}
                 </ul> : ""
@@ -56,11 +69,8 @@ export default function RecordList() {
         }
 
         getRecords();
+        }, [records.length]);
 
-        return;
-    }, [records.length]);
-
-    // This method will delete a record
     async function deleteRecord(id) {
         await fetch(`http://localhost:5050/record/${id}`, {
             method: "DELETE"
@@ -70,20 +80,27 @@ export default function RecordList() {
         setRecords(newRecords);
     }
 
-    // This method will map out the records on the table
+    function find_by_name(student){
+        const res = records.filter((el) =>el.name === student.name);
+        return res? res.at(0) : null;
+    }
+
     function recordList() {
         return records.map((record) => {
+            const students_ids = record.students?record.students.map((student) => find_by_name(student)):null;
+            record.students=students_ids
+
             return (
                 <Record
                     record={record}
                     deleteRecord={() => deleteRecord(record._id)}
                     key={record._id}
+                    students={students_ids}
                 />
             );
         });
     }
 
-    // This following section will display the table with the records of individuals.
     return (
         <div >
             <h3>רבנים</h3>
@@ -95,6 +112,7 @@ export default function RecordList() {
                     <th>דור</th>
                     <th>נולד</th>
                     <th>ספרים</th>
+                    <th>תלמידים</th>
                     <th>פעולה</th>
                 </tr>
                 </thead>

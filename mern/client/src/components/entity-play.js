@@ -26,13 +26,13 @@ export default function Rabbi(props){
         updateForm({books:newBooks})
     }
 
-    const [newStudent, setNewStudent] = useState(
+    const [newStudentName, setNewStudentName] = useState(
         ""
     );
 
     function addStudent() {
         const newStudent = {
-            name: newStudent,
+            name: newStudentName,
         };
         return props.myProp.form.students ?
              updateForm({ students: [...props.myProp.form.students, newStudent]})
@@ -90,9 +90,9 @@ export default function Rabbi(props){
             <div className="form-group w-25">
                 <label htmlFor="books">ספרים: </label>
                 {props.myProp.form.books ?
-                    <ul  class="list-group">
+                    <ul className="list-group">
                         {props.myProp.form.books.map(book => (
-                            <li class="list-group-item  " key={book.title}>
+                            <li className="list-group-item  " key={book.title}>
                                 <input
                                     type="text"
                                     className="form-control"
@@ -111,7 +111,6 @@ export default function Rabbi(props){
                     value={newBookTitle}
                     onChange={(e) => setNewBookTitle(e.target.value)}
                 />
-                {/*<button onClick={addBook}>הוסף ספר</button>*/}
                 <input
                     type="button"
                     value="הוסף ספר"
@@ -120,7 +119,7 @@ export default function Rabbi(props){
                 />
             </div>
             <div className="form-group w-25">
-                <label htmlFor="students">ספרים: </label>
+                <label htmlFor="students">תלמידים: </label>
                 {props.myProp.form.students ?
                     <ul className="list-group">
                         {props.myProp.form.students.map(student => (
@@ -140,8 +139,8 @@ export default function Rabbi(props){
                     type="text"
                     className="form-control"
                     id="name"
-                    value={newStudent}
-                    onChange={(e) => setNewStudent(e.target.value)}
+                    value={newStudentName}
+                    onChange={(e) => setNewStudentName(e.target.value)}
                 />
                 <input
                     type="button"

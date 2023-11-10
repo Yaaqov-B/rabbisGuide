@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function About() {
 
     return (
-        <div class="text-break w-75">
+        <div className="text-break w-75">
             <p>
                 <h4>
                     קרית חנוך מבשרת ציון
