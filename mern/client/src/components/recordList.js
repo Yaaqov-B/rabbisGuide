@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import SearchBox from "./search";
 
 const Record = (props) => (
     <tr>
@@ -53,6 +54,15 @@ const Record = (props) => (
 export default function RecordList() {
     const [records, setRecords] = useState([]);
 
+    const [searchTerm, setSearchTerm] = useState("");
+
+    const handleChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
+    const filteredItems = records.filter((item) =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
     // This method fetches the records from the database.
     useEffect(() => {
         async function getRecords() {
@@ -86,7 +96,7 @@ export default function RecordList() {
     }
 
     function recordList() {
-        return records.map((record) => {
+        return filteredItems.map((record) => {
             const students_ids = record.students?record.students.map((student) => find_by_name(student)):null;
             record.students=students_ids
 
@@ -104,6 +114,8 @@ export default function RecordList() {
     return (
         <div >
             <h3>רבנים</h3>
+            <SearchBox value={searchTerm} onChange={handleChange} />
+
             <table className="table table-striped" style={{ marginTop: 20 }}>
                 <thead>
                 <tr>

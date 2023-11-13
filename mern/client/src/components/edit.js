@@ -63,6 +63,7 @@ export default function Edit() {
     onSubmit: onSubmit,
     title: "עדכן רשומה"
   };
+
   return (
       <div>
         <h3>עדכן רשומה</h3>
