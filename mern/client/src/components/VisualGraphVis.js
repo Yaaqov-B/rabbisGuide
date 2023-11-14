@@ -32,4 +32,6 @@ const VisualGraph = ({ elements }) => {
     );
 };
 
+
+
 export default VisualGraph;

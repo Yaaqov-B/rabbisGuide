@@ -1,4 +1,4 @@
-export const elements = {
+export const elements2 = {
     nodes: [
         {id: 1, label: "Node 1", title: "node 1 tootip text"},
         {id: 2, label: "Node 2", title: "node 2 tootip text"},
