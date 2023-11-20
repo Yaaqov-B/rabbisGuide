@@ -9,6 +9,13 @@ export default function Edit() {
   const params = useParams();
   const navigate = useNavigate();
 
+  function onChangeForm(value) {
+    return setForm((prev) => {
+      let newVar = {...prev, ...value};
+      // console.log(newVar)
+      return newVar;
+    })
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -38,10 +45,15 @@ export default function Edit() {
     e.preventDefault();
     const editedPerson = {
       name: form.name,
-      position: form.position,
-      level: form.level,
+      alias: form.alias,
       born: form.born,
+      died: form.died,
+      birthPlace: form.birthPlace,
+      deathPlace: form.deathPlace,
+      description: form.description,
+      externalLinks: form.externalLinks,
       books: form.books,
+      teachers: form.teachers,
       students: form.students,
     };
 
@@ -59,7 +71,7 @@ export default function Edit() {
 
   const myObject = {
     form: form,
-    setForm: setForm,
+    onChangeForm: onChangeForm,
     onSubmit: onSubmit,
     title: "עדכן רשומה"
   };

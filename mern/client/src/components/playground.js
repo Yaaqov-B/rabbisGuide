@@ -11,9 +11,9 @@ const Record = (props) => (
         <td>
             <Link className="btn btn-link" to={`/show/${props.record._id}`}> {props.record.name}</Link> |
         </td>
-        <td>{props.record.position}</td>
-        <td>{props.record.level}</td>
+        <td>{props.record.alias}</td>
         <td>{props.record.born}</td>
+        <td>{props.record.died}</td>
         <td>
             {props.record.books ?
                 <ul>
@@ -160,7 +160,7 @@ export default function RecordList() {
 
     function setGraph(items){
         const nodes = items.reduce((total, rabbi)=> {
-            total.push({id: rabbi._id, label: rabbi.name, title: rabbi.level});
+            total.push({id: rabbi._id, label: rabbi.name, title: rabbi.died});
             return total;
         }, [])
         const edges = items.reduce((total, rabbi)=> {
@@ -239,7 +239,7 @@ export default function RecordList() {
     function getNodes(rabbi, student){
         // console.log(rabbi._id)
         const nodes = [
-            {id: rabbi._id, label: rabbi.name, title: rabbi.level},
+            {id: rabbi._id, label: rabbi.name, title: rabbi.died},
             // {id: student._id, label: student.name, title: student.level},
 
             // { data: { id: rabbi._id, label: rabbi.name }},

@@ -58,23 +58,13 @@ export default function Rabbi(props){
                 />
             </div>
             <div className="form-group w-25">
-                <label htmlFor="position">כינוי: </label>
+                <label htmlFor="alias">כינוי: </label>
                 <input
                     type="text"
                     className="form-control"
-                    id="position"
-                    value={props.myProp.form.position}
-                    onChange={(e) => updateForm({ position: e.target.value })}
-                />
-            </div>
-            <div className="form-group w-25">
-                <label htmlFor="level">שלב: </label>
-                <input
-                    type="text"
-                    className="form-control"
-                    id="level"
-                    value={props.myProp.form.level}
-                    onChange={(e) => updateForm({ level: e.target.value })}
+                    id="alias"
+                    value={props.myProp.form.alias}
+                    onChange={(e) => updateForm({ alias: e.target.value })}
                 />
             </div>
             <div className="form-group w-25">
@@ -85,6 +75,16 @@ export default function Rabbi(props){
                     id="born"
                     value={props.myProp.form.born}
                     onChange={(e) => updateForm({ born: e.target.value })}
+                />
+            </div>
+            <div className="form-group w-25">
+                <label htmlFor="level">נפטר: </label>
+                <input
+                    type="text"
+                    className="form-control"
+                    id="level"
+                    value={props.myProp.form.died}
+                    onChange={(e) => updateForm({ level: e.target.died })}
                 />
             </div>
             <div className="form-group w-25">
@@ -119,7 +119,7 @@ export default function Rabbi(props){
                 />
             </div>
             <div className="form-group w-25">
-                <label htmlFor="students">תלמידים: </label>
+                <label htmlFor="teachers">רבותיו: </label>
                 {props.myProp.form.students ?
                     <ul className="list-group">
                         {props.myProp.form.students.map(student => (
@@ -130,7 +130,38 @@ export default function Rabbi(props){
                                     id="student"
                                     value={student.name}
                                 />
-                                <button onClick={() => removeBook(student.name)}>X</button>
+                                <button onClick={() => removeTeacher(teacher.name)}>X</button>
+                            </li>
+                        ))}
+                    </ul> : ""
+                }
+                <input
+                    type="text"
+                    className="form-control"
+                    id="name"
+                    value={newTeacherName}
+                    onChange={(e) => setNewTeacherName(e.target.value)}
+                />
+                <input
+                    type="button"
+                    value="הוסף רב"
+                    className="btn btn-secondary"
+                    onClick={addTeacher}
+                />
+            </div>
+            <div className="form-group w-25">
+                <label htmlFor="students">תלמידיו: </label>
+                {props.myProp.form.students ?
+                    <ul className="list-group">
+                        {props.myProp.form.students.map(student => (
+                            <li className="list-group-item  " key={student.name}>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="student"
+                                    value={student.name}
+                                />
+                                <button onClick={() => removeStudent(student.name)}>X</button>
                             </li>
                         ))}
                     </ul> : ""

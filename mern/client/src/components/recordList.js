@@ -7,9 +7,13 @@ const Record = (props) => (
         <td>
             <Link className="btn btn-link" to={`/show/${props.record._id}`}> {props.record.name}</Link> |
         </td>
-        <td>{props.record.position}</td>
-        <td>{props.record.level}</td>
+        <td>{props.record.alias}</td>
         <td>{props.record.born}</td>
+        <td>{props.record.died}</td>
+        <td>{props.record.birthPlace}</td>
+        <td>{props.record.deathPlace}</td>
+        <td>{props.record.description}</td>
+        <td>{props.record.externalLinks}</td>
         <td>
             {props.record.books ?
                 <ul>
@@ -27,12 +31,24 @@ const Record = (props) => (
             }
         </td>
         <td>
-            {props.students ?
+            {props.teachers ?
                 <ul>
-                    {props.students.map(student => (
+                    {props.teachers.map(teacher => (
 
-                        <li key={student._id}>
-                            <Link className="btn btn-link" to={`/show/${student._id}`}>{student.name}</Link> |
+                        <li key={teacher._id}>
+                            <Link className="btn btn-link" to={`/show/${teacher._id}`}>{teacher.name}</Link> |
+                        </li>
+                    ))}
+                </ul> : ""
+            }
+        </td>
+        <td>
+            {props.teachers ?
+                <ul>
+                    {props.teachers.map(teacher => (
+
+                        <li key={teacher._id}>
+                            <Link className="btn btn-link" to={`/show/${teacher._id}`}>{teacher.name}</Link> |
                         </li>
                     ))}
                 </ul> : ""
@@ -91,6 +107,7 @@ export default function RecordList() {
     }
 
     function find_by_name(student){
+        if (!student) return null;
         const res = records.filter((el) =>el.name === student.name);
         return res? res.at(0) : null;
     }
@@ -98,13 +115,16 @@ export default function RecordList() {
     function recordList() {
         return filteredItems.map((record) => {
             const students_ids = record.students?record.students.map((student) => find_by_name(student)):null;
-            record.students=students_ids
+            record.students=students_ids;
+            const teachers_ids = record.teachers?record.teachers.map((teacher) => find_by_name(teacher)):null;
+            record.teachers=teachers_ids
 
             return (
                 <Record
                     record={record}
                     deleteRecord={() => deleteRecord(record._id)}
                     key={record._id}
+                    teachers={teachers_ids}
                     students={students_ids}
                 />
             );
@@ -121,10 +141,15 @@ export default function RecordList() {
                 <tr>
                     <th>שם</th>
                     <th>כינוי</th>
-                    <th>דור</th>
                     <th>נולד</th>
-                    <th>ספרים</th>
-                    <th>תלמידים</th>
+                    <th>נפטר</th>
+                    <th>מקום לידה</th>
+                    <th>מקום פטירה</th>
+                    <th>תיאור</th>
+                    <th>קישורים</th>
+                    <th>ספריו</th>
+                    <th>רבותיו</th>
+                    <th>תלמידיו</th>
                     <th>פעולה</th>
                 </tr>
                 </thead>
