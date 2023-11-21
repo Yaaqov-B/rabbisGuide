@@ -5,7 +5,7 @@ import SearchBox from "./search";
 const Record = (props) => (
     <tr>
         <td>
-            <Link className="btn btn-link" to={`/show/${props.record._id}`}> {props.record.name}</Link> |
+            <Link className="btn btn-link" to={`/show/${props.record._id}`}> {props.record.name}</Link>
         </td>
         <td>{props.record.alias}</td>
         <td>{props.record.born}</td>
@@ -19,12 +19,7 @@ const Record = (props) => (
                 <ul>
                     {props.record.books.map(book => (
                         <li key={book.title}>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="book"
-                                value={book.title}
-                            />
+                            <label id="book">{book.title}</label>
                         </li>
                     ))}
                 </ul> : ""
@@ -33,22 +28,22 @@ const Record = (props) => (
         <td>
             {props.teachers ?
                 <ul>
-                    {props.teachers.map(teacher => (
+                    {props.teachers.filter(teacher=>teacher != null && teacher._id  != null).map(teacher => (
 
                         <li key={teacher._id}>
-                            <Link className="btn btn-link" to={`/show/${teacher._id}`}>{teacher.name}</Link> |
+                            <Link className="btn btn-link" to={`/show/${teacher._id}`}>{teacher.name}</Link>
                         </li>
                     ))}
                 </ul> : ""
             }
         </td>
         <td>
-            {props.teachers ?
+            {props.students ?
                 <ul>
-                    {props.teachers.map(teacher => (
+                    {props.students.filter(student=>student != null && student._id  != null).map(student => (
 
-                        <li key={teacher._id}>
-                            <Link className="btn btn-link" to={`/show/${teacher._id}`}>{teacher.name}</Link> |
+                        <li key={student._id}>
+                            <Link className="btn btn-link" to={`/show/${student._id}`}>{student.name}</Link>
                         </li>
                     ))}
                 </ul> : ""
@@ -108,7 +103,10 @@ export default function RecordList() {
 
     function find_by_name(student){
         if (!student) return null;
+
         const res = records.filter((el) =>el.name === student.name);
+        // console.log(res)
+        // console.log(student)
         return res? res.at(0) : null;
     }
 

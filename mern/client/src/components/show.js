@@ -119,6 +119,7 @@ export default function Show() {
         navigate("/");
         return;
       }
+      console.log(record)
       setRecord(record);
       setForm(record);
     }
