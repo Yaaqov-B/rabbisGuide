@@ -101,7 +101,9 @@ export default function RecordList() {
     const filteredItems = records.filter((item) =>
         item.name.toLowerCase().includes(searchTerm.toLowerCase())  ||
          (item.alias && item.alias.toLowerCase().includes(searchTerm.toLowerCase())) ||
-         (item.books && item.books.filter((book) => book.title.toLowerCase().includes(searchTerm.toLowerCase())).length>0)
+        (item.birthPlace && item.birthPlace.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (item.deathPlace && item.deathPlace.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (item.books && item.books.filter((book) => book.title.toLowerCase().includes(searchTerm.toLowerCase())).length>0)
     );
     // This method fetches the records from the database.
     useEffect(() => {
