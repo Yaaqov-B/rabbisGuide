@@ -165,41 +165,52 @@ export default function RecordList() {
             <table className="table table-striped" style={{ marginTop: 20 }}>
                 <thead>
                 <tr>
-                    <th  onClick={() => handleSort('name')}>
+                    <th>
+                        <button className="btn btn-link"
+                                                    onClick={() => handleSort('name')}>
                             שם
                             {sortField === 'name' && sortOrder === 'asc' && <span> ▴</span>}
                             {sortField === 'name' && sortOrder === 'desc' && <span>▾</span>}
-
+                        </button>
                     </th>
-                    <th  onClick={() => handleSort('alias')}>
+                    <th>
+                        <button className="btn btn-link"
+                                onClick={() => handleSort('alias')}>
                         כינוי
                             {sortField === 'alias' && sortOrder === 'asc' && <span> ▴</span>}
                             {sortField === 'alias' && sortOrder === 'desc' && <span>▾</span>}
-
+                        </button>
                     </th>
-                    <th  onClick={() => handleSort('born')}>
+                    <th  >
+                        <button className="btn btn-link"
+                                onClick={() => handleSort('born')}>
                         נולד
                         {sortField === 'born' && sortOrder === 'asc' && <span> ▴</span>}
                         {sortField === 'born' && sortOrder === 'desc' && <span>▾</span>}
-
+                        </button>
                     </th>
-                    <th  onClick={() => handleSort('died')}>
+                    <th >
+                        <button className="btn btn-link"
+                                onClick={() => handleSort('died')}>
                         נפטר
                         {sortField === 'died' && sortOrder === 'asc' && <span> ▴</span>}
                         {sortField === 'died' && sortOrder === 'desc' && <span>▾</span>}
-
+                        </button>
                     </th>
-                    <th  onClick={() => handleSort('birthPlace')}>
+                    <th>                        <button className="btn btn-link"
+                                                        onClick={() => handleSort('birthPlace')}>
                         מקום לידה
                         {sortField === 'birthPlace' && sortOrder === 'asc' && <span> ▴</span>}
                         {sortField === 'birthPlace' && sortOrder === 'desc' && <span>▾</span>}
-
+                    </button>
                     </th>
-                    <th  onClick={() => handleSort('deathPlace')}>
+                    <th>
+                        <button className="btn btn-link"
+                                onClick={() => handleSort('deathPlace')}>
                         מקום פטירה
                         {sortField === 'deathPlace' && sortOrder === 'asc' && <span> ▴</span>}
                         {sortField === 'deathPlace' && sortOrder === 'desc' && <span>▾</span>}
-
+                        </button>
                     </th>
                     <th>תיאור</th>
                     <th>קישורים</th>
