@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import SearchBox from "./search";
-import VisualGraph from "./VisualGraphVis";
-import { elements2 } from "./mock2";
+import VisualGraph from "./visualGraph";
 
 // Cytoscape.use(dagre);
 //

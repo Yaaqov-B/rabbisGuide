@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router";
 import Rabbi from "./entity-view";
-import VisualGraph from "./VisualGraphVis";
+import VisualGraph from "./visualGraph";
 
 export default function Show() {
   const [records, setRecords] = useState([]);

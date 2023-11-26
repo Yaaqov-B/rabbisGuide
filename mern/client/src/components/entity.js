@@ -20,7 +20,7 @@ export default function Rabbi(props){
     }
 
     function removeBook(item){
-        const newBooks = props.myProp.form.books.filter(value => value.title !== item)
+        const newBooks = props.myProp.form.books.filter(value => value.title != item)
         updateForm({books:newBooks})
     }
 
@@ -37,9 +37,12 @@ export default function Rabbi(props){
             :updateForm({ students: [ newStudent]})
     }
 
-    function removeStudent(item){
-        const newStudents = props.myProp.form.students.filter(value => value.title !== item)
-        updateForm({newStudent:newStudents})
+    const removeStudent =(item) =>{
+        // console.log(item)
+        const newStudents = props.myProp.form.students.filter(value => {
+            return (value.name != item)
+        })
+        updateForm({students:newStudents})
     }
 
     const [newTeacherName, setNewTeacherName] = useState(
@@ -47,7 +50,6 @@ export default function Rabbi(props){
     );
 
     function addTeacher() {
-        console.log('ADD')
         const newTeacher = {
             name: newTeacherName,
         };
@@ -56,9 +58,9 @@ export default function Rabbi(props){
             :updateForm({ teachers: [ newTeacher]})
     }
 
-    function removeTeacher(item){
-        const newTeachers = props.myProp.form.teachers.filter(value => value.title !== item)
-        updateForm({newTeacher:newTeachers})
+    const removeTeacher = (item) => {
+        const newTeachers = props.myProp.form.teachers.filter(value => value.name != item)
+        updateForm({teachers:newTeachers})
     }
 
     return(
@@ -99,7 +101,7 @@ export default function Rabbi(props){
                 <input
                     type="text"
                     className="form-control"
-                    id="level"
+                    id="died"
                     value={props.myProp.form.died}
                     onChange={(e) => updateForm({ died: e.target.value })}
                 />
@@ -145,14 +147,19 @@ export default function Rabbi(props){
                 />
             </div>
             <div className="form-group w-25">
-                <label htmlFor="books">ספריו: </label>
+                <h4>ספריו: </h4>
                 {props.myProp.form.books ?
-                    <ul className="list-group">
+                    <ul className="list-group" id="books">
                         {props.myProp.form.books.map(book => (
                             <li className="list-group-item  " key={book.title} >
-
-                                <button onClick={() => removeBook(book.title)}> X </button>
-                                <label>{book.title}</label>
+                                {/*<button onClick={() => removeBook(book.title)}> X </button>*/}
+                                <input
+                                    type="button"
+                                    value="X"
+                                    className="btn btn-secondary"
+                                    onClick={()=>removeBook(book.title)}
+                                />
+                                {book.title}
                             </li>
                         ))}
                     </ul> : ""
@@ -160,7 +167,7 @@ export default function Rabbi(props){
                 <input
                     type="text"
                     className="form-control"
-                    id="name"
+                    id="add_book"
                     value={newBookTitle}
                     onChange={(e) => setNewBookTitle(e.target.value)}
                 />
@@ -172,13 +179,20 @@ export default function Rabbi(props){
                 />
             </div>
             <div className="form-group w-25">
-                <label htmlFor="teachers">רבותיו: </label>
+                <h4>רבותיו: </h4>
+
                 {props.myProp.form.teachers ?
-                    <ul className="list-group">
+                    <ul className="list-group" id="teachers">
                         {props.myProp.form.teachers.map(teacher => (
-                            <li className="list-group-item  " key={teacher.name}>
-                                <button onClick={() => removeTeacher(teacher.name)}>X</button>
-                                <label>{teacher.name}</label>
+                            <li className="list-group-item  " key={teacher.name} >
+                                {/*<button onClick={() => removeTeacher(teacher.name)}> X </button>*/}
+                                <input
+                                    type="button"
+                                    value="X"
+                                    className="btn btn-secondary"
+                                    onClick={()=>removeTeacher(teacher.name)}
+                                />
+                                {teacher.name}
                             </li>
                         ))}
                     </ul> : ""
@@ -186,7 +200,7 @@ export default function Rabbi(props){
                 <input
                     type="text"
                     className="form-control"
-                    id="name"
+                    id="add_teacher"
                     value={newTeacherName}
                     onChange={(e) => setNewTeacherName(e.target.value)}
                 />
@@ -198,13 +212,19 @@ export default function Rabbi(props){
                 />
             </div>
             <div className="form-group w-25">
-                <label htmlFor="students">תלמידיו: </label>
+                <h4>תלמידיו: </h4>
                 {props.myProp.form.students ?
-                    <ul className="list-group">
+                    <ul className="list-group" id="students">
                         {props.myProp.form.students.map(student => (
                             <li className="list-group-item  " key={student.name}>
-                                <button onClick={() => removeStudent(student.name)}>X</button>
-                                <label>{student.name}</label>
+                                {/*<button onClick={() => removeStudent(student.name)}>X</button>*/}
+                                <input
+                                    type="button"
+                                    value="X"
+                                    className="btn btn-secondary"
+                                    onClick={()=>removeStudent(student.name)}
+                                />
+                               {student.name}
                             </li>
                         ))}
                     </ul> : ""
@@ -212,7 +232,7 @@ export default function Rabbi(props){
                 <input
                     type="text"
                     className="form-control"
-                    id="name"
+                    id="add_student"
                     value={newStudentName}
                     onChange={(e) => setNewStudentName(e.target.value)}
                 />

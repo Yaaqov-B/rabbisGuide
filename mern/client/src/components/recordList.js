@@ -13,14 +13,17 @@ const Record = (props) => (
         <td>{props.record.birthPlace}</td>
         <td>{props.record.deathPlace}</td>
         <td>{props.record.description}</td>
-        <td>{props.record.externalLinks}</td>
+        <td>
+            {props.record.externalLinks ?
+                <Link className="btn btn-link" to={props.record.externalLinks}>עוד מידע</Link>
+                : ""
+            }
+        </td>
         <td>
             {props.record.books ?
                 <ul>
                     {props.record.books.map(book => (
-                        <li key={book.title}>
-                            <label id="book">{book.title}</label>
-                        </li>
+                        <li key={book.title}>{book.title}</li>
                     ))}
                 </ul> : ""
             }
@@ -103,10 +106,7 @@ export default function RecordList() {
 
     function find_by_name(student){
         if (!student) return null;
-
         const res = records.filter((el) =>el.name === student.name);
-        // console.log(res)
-        // console.log(student)
         return res? res.at(0) : null;
     }
 

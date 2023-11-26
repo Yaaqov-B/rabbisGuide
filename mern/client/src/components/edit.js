@@ -12,7 +12,7 @@ export default function Edit() {
   function onChangeForm(value) {
     return setForm((prev) => {
       let newVar = {...prev, ...value};
-      // console.log(newVar)
+      console.log('onChangeForm')
       return newVar;
     })
   }
@@ -42,6 +42,8 @@ export default function Edit() {
 
 
   async function onSubmit(e) {
+    console.log('onSubmit')
+
     e.preventDefault();
     const editedPerson = {
       name: form.name,
