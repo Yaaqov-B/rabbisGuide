@@ -34,7 +34,8 @@ const Record = (props) => (
                     {props.teachers.filter(teacher=>teacher != null && teacher._id  != null).map(teacher => (
 
                         <li key={teacher._id}>
-                            <Link className="btn btn-link" to={`/show/${teacher._id}`}>{teacher.name}</Link>
+                            {/*<Link className="btn btn-link" to={`/show/${teacher._id}`}>{teacher.name}</Link>*/}
+                            <button className="btn btn-link" onClick={() =>  props.setSearchTerm(teacher.name)}>{teacher.name}</button>
                         </li>
                     ))}
                 </ul> : ""
@@ -46,7 +47,9 @@ const Record = (props) => (
                     {props.students.filter(student=>student != null && student._id  != null).map(student => (
 
                         <li key={student._id}>
-                            <Link className="btn btn-link" to={`/show/${student._id}`}>{student.name}</Link>
+                            {/*<Link className="btn btn-link" to={`/show/${student._id}`}>{student.name}</Link>*/}
+                            <button className="btn btn-link" onClick={() =>  props.setSearchTerm(student.name)}>{student.name}</button>
+
                         </li>
                     ))}
                 </ul> : ""
@@ -152,6 +155,7 @@ export default function RecordList() {
                     key={record._id}
                     teachers={teachers_ids}
                     students={students_ids}
+                    setSearchTerm={setSearchTerm}
                 />
             );
         });
