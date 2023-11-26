@@ -74,6 +74,30 @@ export default function RecordList() {
         setSearchTerm(e.target.value);
     };
 
+    const [sortField, setSortField] = useState('name');
+    const [sortOrder, setSortOrder] = useState('asc');
+
+    const handleSort = (field) => {
+        if (sortField === field) {
+            setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+        } else {
+            setSortField(field);
+            setSortOrder('asc');
+        }
+    };
+
+    const sortedData = records.sort((a, b) => {
+        if (a[sortField] < b[sortField]) {
+            return sortOrder === 'asc' ? -1 : 1;
+        } else
+
+        if (a[sortField] > b[sortField]) {
+            return sortOrder === 'asc' ? 1 : -1;
+        } else {
+            return 0;
+        }
+    });
+
     const filteredItems = records.filter((item) =>
         item.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -137,12 +161,42 @@ export default function RecordList() {
             <table className="table table-striped" style={{ marginTop: 20 }}>
                 <thead>
                 <tr>
-                    <th>שם</th>
-                    <th>כינוי</th>
-                    <th>נולד</th>
-                    <th>נפטר</th>
-                    <th>מקום לידה</th>
-                    <th>מקום פטירה</th>
+                    <th  onClick={() => handleSort('name')}>
+                            שם
+                            {sortField === 'name' && sortOrder === 'asc' && <span> ▴</span>}
+                            {sortField === 'name' && sortOrder === 'desc' && <span>▾</span>}
+
+                    </th>
+                    <th  onClick={() => handleSort('alias')}>
+                        כינוי
+                            {sortField === 'alias' && sortOrder === 'asc' && <span> ▴</span>}
+                            {sortField === 'alias' && sortOrder === 'desc' && <span>▾</span>}
+
+                    </th>
+                    <th  onClick={() => handleSort('born')}>
+                        נולד
+                        {sortField === 'born' && sortOrder === 'asc' && <span> ▴</span>}
+                        {sortField === 'born' && sortOrder === 'desc' && <span>▾</span>}
+
+                    </th>
+                    <th  onClick={() => handleSort('died')}>
+                        נפטר
+                        {sortField === 'died' && sortOrder === 'asc' && <span> ▴</span>}
+                        {sortField === 'died' && sortOrder === 'desc' && <span>▾</span>}
+
+                    </th>
+                    <th  onClick={() => handleSort('birthPlace')}>
+                        מקום לידה
+                        {sortField === 'birthPlace' && sortOrder === 'asc' && <span> ▴</span>}
+                        {sortField === 'birthPlace' && sortOrder === 'desc' && <span>▾</span>}
+
+                    </th>
+                    <th  onClick={() => handleSort('deathPlace')}>
+                        מקום פטירה
+                        {sortField === 'deathPlace' && sortOrder === 'asc' && <span> ▴</span>}
+                        {sortField === 'deathPlace' && sortOrder === 'desc' && <span>▾</span>}
+
+                    </th>
                     <th>תיאור</th>
                     <th>קישורים</th>
                     <th>ספריו</th>
