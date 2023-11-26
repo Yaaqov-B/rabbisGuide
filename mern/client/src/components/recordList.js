@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SearchBox from "./search";
+import VisualGraph from "./visualGraph";
 
 const Record = (props) => (
+    <React.Fragment key={props.record._id}>
     <tr>
         <td>
-            <Link className="btn btn-link" to={`/show/${props.record._id}`}> {props.record.name}</Link>
+            <button className="btn btn-link" onClick={() => props.handleExpand(props.record)}>
+                {props.record.name}
+            </button>
         </td>
         <td>{props.record.alias}</td>
         <td>{props.record.born}</td>
@@ -66,12 +70,90 @@ const Record = (props) => (
             </button>
         </td>
     </tr>
+        {props.expandedId === props.record._id && (
+    <tr>
+        <td colSpan={12}>
+            <div>
+                <VisualGraph elements={props.elements} />
+            </div>
+
+
+        </td>
+
+
+    </tr>
+)}
+    </React.Fragment>
+
 );
 
 export default function RecordList() {
     const [records, setRecords] = useState([]);
 
     const [searchTerm, setSearchTerm] = useState("");
+
+    const [expandedRowId, setExpandedRowId] = useState(null);
+
+    const [elements, setElements] = useState({
+        'nodes':[],
+        'edges':[]
+    });
+
+
+    function setGraph(root){
+        // root = find_by_name(records, root);
+        const q = [];
+        const visited = {};
+        const nodes = [];
+        const edges = [];
+        q.push(root);
+        while(q.length>0){
+            const rabbi = q.shift();
+            if (!visited[rabbi._id]){
+                visited[rabbi._id] = true;
+                nodes.push({id: rabbi._id, label: rabbi.name, title: rabbi.died});
+                if (rabbi.students){
+                    rabbi.students.map(student=>{
+                        edges.push({from: rabbi._id, to: student._id});
+                        q.push(student);
+                    })
+                }
+            }
+        }
+
+        // q.push(root);
+        if(root.teachers){
+            root.teachers.map(teacher=>{
+                edges.push({from: teacher._id, to: root._id});
+                q.push(teacher);
+            })
+        }
+        while(q.length>0){
+            const rabbi = q.shift();
+            console.log(rabbi)
+            if (!visited[rabbi._id]){
+                visited[rabbi._id] = true;
+                nodes.push({id: rabbi._id, label: rabbi.name, title: rabbi.died});
+                if (rabbi.teachers){
+                    rabbi.teachers.map(teacher=>{
+                        edges.push({from: teacher._id, to: rabbi._id});
+                        q.push(teacher);
+                    })
+                }
+            }
+        }
+        setElements({'nodes':nodes, 'edges':edges})
+
+        // elements.current = {'nodes':nodes, 'edges':edges}
+    }
+    function handleExpand(rabbi){
+        if (expandedRowId === rabbi._id) {
+            setExpandedRowId(null);
+        } else {
+            setExpandedRowId(rabbi._id);
+            setGraph(rabbi)
+        }
+    };
 
     const handleChange = (e) => {
         setSearchTerm(e.target.value);
@@ -156,6 +238,9 @@ export default function RecordList() {
                     teachers={teachers_ids}
                     students={students_ids}
                     setSearchTerm={setSearchTerm}
+                    expandedId = {expandedRowId}
+                    handleExpand = {() => handleExpand(record)}
+                    elements = {elements}
                 />
             );
         });
