@@ -5,84 +5,83 @@ import VisualGraph from "./visualGraph";
 
 const Record = (props) => (
     <React.Fragment key={props.record._id}>
-    <tr>
-        <td>
-            <button className="btn btn-link" onClick={() => props.handleExpand(props.record)}>
-                {props.record.name}
-            </button>
-        </td>
-        <td>{props.record.alias}</td>
-        <td>{props.record.born}</td>
-        <td>{props.record.died}</td>
-        <td>{props.record.birthPlace}</td>
-        <td>{props.record.deathPlace}</td>
-        <td>{props.record.description}</td>
-        <td>
-            {props.record.externalLinks ?
-                <Link className="btn btn-link" to={props.record.externalLinks}>עוד מידע</Link>
-                : ""
-            }
-        </td>
-        <td>
-            {props.record.books ?
-                <ul>
-                    {props.record.books.map(book => (
-                        <li key={book.title}>{book.title}</li>
-                    ))}
-                </ul> : ""
-            }
-        </td>
-        <td>
-            {props.teachers ?
-                <ul>
-                    {props.teachers.filter(teacher=>teacher != null && teacher._id  != null).map(teacher => (
+        <tr>
+            <td>
+                <button className="btn btn-link" onClick={() => props.handleExpand(props.record)}>
+                    {props.record.name}
+                </button>
+            </td>
+            <td>{props.record.alias}</td>
+            <td>{props.record.born}</td>
+            <td>{props.record.died}</td>
+            <td>{props.record.birthPlace}</td>
+            <td>{props.record.deathPlace}</td>
+            <td>{props.record.description}</td>
+            <td>
+                {props.record.books ?
+                    <ul>
+                        {props.record.books.map(book => (
+                            <li key={book.title}>{book.title}</li>
+                        ))}
+                    </ul> : ""
+                }
+            </td>
+            <td>
+                {props.teachers ?
+                    <ul>
+                        {props.teachers.filter(teacher=>teacher != null && teacher._id  != null).map(teacher => (
 
-                        <li key={teacher._id}>
-                            {/*<Link className="btn btn-link" to={`/show/${teacher._id}`}>{teacher.name}</Link>*/}
-                            <button className="btn btn-link" onClick={() =>  props.setSearchTerm(teacher.name)}>{teacher.name}</button>
-                        </li>
-                    ))}
-                </ul> : ""
-            }
-        </td>
-        <td>
-            {props.students ?
-                <ul>
-                    {props.students.filter(student=>student != null && student._id  != null).map(student => (
+                            <li key={teacher._id}>
+                                {/*<Link className="btn btn-link" to={`/show/${teacher._id}`}>{teacher.name}</Link>*/}
+                                <button className="btn btn-link" onClick={() =>  props.setSearchTerm(teacher.name)}>{teacher.name}</button>
+                            </li>
+                        ))}
+                    </ul> : ""
+                }
+            </td>
+            <td>
+                {props.students ?
+                    <ul>
+                        {props.students.filter(student=>student != null && student._id  != null).map(student => (
 
-                        <li key={student._id}>
-                            {/*<Link className="btn btn-link" to={`/show/${student._id}`}>{student.name}</Link>*/}
-                            <button className="btn btn-link" onClick={() =>  props.setSearchTerm(student.name)}>{student.name}</button>
+                            <li key={student._id}>
+                                {/*<Link className="btn btn-link" to={`/show/${student._id}`}>{student.name}</Link>*/}
+                                <button className="btn btn-link" onClick={() =>  props.setSearchTerm(student.name)}>{student.name}</button>
 
-                        </li>
-                    ))}
-                </ul> : ""
-            }
-        </td>
-        <td>
-            <Link className="btn btn-link" to={`/edit/${props.record._id}`}>ערוך</Link> |
-            <button className="btn btn-link"
-                    onClick={() => {
-                        props.deleteRecord(props.record._id);
-                    }}
-            >
-                מחק
-            </button>
-        </td>
-    </tr>
+                            </li>
+                        ))}
+                    </ul> : ""
+                }
+            </td>
+            <td>
+                {props.record.externalLinks ?
+                    <Link className="btn btn-link" to={props.record.externalLinks}>עוד מידע</Link>: ""
+                }
+            </td>
+            <td>
+                <Link className="btn btn-link" to={`/edit/${props.record._id}`}>ערוך</Link> |
+                <button className="btn btn-link"
+                        onClick={() => {
+                            props.deleteRecord(props.record._id);
+                        }}
+                >
+                    מחק
+                </button>
+            </td>
+        </tr>
         {props.expandedId === props.record._id && (
-    <tr>
-        <td colSpan={12}>
-            <div>
-                <VisualGraph elements={props.elements} />
-            </div>
+            <tr>
+                <td colSpan={12}>
+                    <div>
+                        <VisualGraph elements={props.elements} />
+                    </div>
 
 
-        </td>
+                </td>
 
 
-    </tr>
-)}
+            </tr>
+        )}
     </React.Fragment>
 
 );
@@ -101,7 +100,6 @@ export default function RecordList() {
 
 
     function setGraph(root){
-        // root = find_by_name(records, root);
         const q = [];
         const visited = {};
         const nodes = [];
@@ -114,8 +112,13 @@ export default function RecordList() {
                 nodes.push({id: rabbi._id, label: rabbi.name, title: rabbi.died});
                 if (rabbi.students){
                     rabbi.students.map(student=>{
+                    if (student && student._id){
                         edges.push({from: rabbi._id, to: student._id});
                         q.push(student);
+                    } else {
+                        console.log(rabbi.name)
+                    }
+                        
                     })
                 }
             }
@@ -136,8 +139,13 @@ export default function RecordList() {
                 nodes.push({id: rabbi._id, label: rabbi.name, title: rabbi.died});
                 if (rabbi.teachers){
                     rabbi.teachers.map(teacher=>{
-                        edges.push({from: teacher._id, to: rabbi._id});
-                        q.push(teacher);
+                        if(teacher && teacher._id){
+                            edges.push({from: teacher._id, to: rabbi._id});
+                            q.push(teacher);
+                        } else {
+                            console.log(rabbi.name)
+                        }
+                
                     })
                 }
             }
@@ -157,6 +165,10 @@ export default function RecordList() {
 
     const handleChange = (e) => {
         setSearchTerm(e.target.value);
+    };
+
+    const handleClearSearchInput = () => {
+        setSearchTerm('');
     };
 
     const [sortField, setSortField] = useState('name');
@@ -185,10 +197,13 @@ export default function RecordList() {
 
     const filteredItems = records.filter((item) =>
         item.name.toLowerCase().includes(searchTerm.toLowerCase())  ||
-         (item.alias && item.alias.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (item.alias && item.alias.toLowerCase().includes(searchTerm.toLowerCase())) ||
         (item.birthPlace && item.birthPlace.toLowerCase().includes(searchTerm.toLowerCase())) ||
         (item.deathPlace && item.deathPlace.toLowerCase().includes(searchTerm.toLowerCase())) ||
         (item.books && item.books.filter((book) => book.title.toLowerCase().includes(searchTerm.toLowerCase())).length>0)
+        ||         (item.students && item.students.filter((student) => student && student.name? student.name.toLowerCase().includes(searchTerm.toLowerCase()) : false).length>0)
+        ||         (item.teachers && item.teachers.filter((teacher) => teacher && teacher.name? teacher.name.toLowerCase().includes(searchTerm.toLowerCase()): false).length>0)
+
     );
     // This method fetches the records from the database.
     useEffect(() => {
@@ -206,7 +221,7 @@ export default function RecordList() {
         }
 
         getRecords();
-        }, [records.length]);
+    }, [records.length]);
 
     async function deleteRecord(id) {
         await fetch(`http://localhost:5050/record/${id}`, {
@@ -249,63 +264,71 @@ export default function RecordList() {
     return (
         <div >
             <h3>רבנים</h3>
-            <SearchBox value={searchTerm} onChange={handleChange} />
+            <SearchBox value={searchTerm} onChange={handleChange} handleClearSearchInput={handleClearSearchInput}/>
 
             <table className="table table-striped" style={{ marginTop: 20 }}>
                 <thead>
                 <tr>
                     <th>
-                        <button className="btn btn-link"
-                                                    onClick={() => handleSort('name')}>
+                        <button className="btn "
+                                onClick={() => handleSort('name')}>
                             שם
                             {sortField === 'name' && sortOrder === 'asc' && <span> ▴</span>}
                             {sortField === 'name' && sortOrder === 'desc' && <span>▾</span>}
                         </button>
                     </th>
                     <th>
-                        <button className="btn btn-link"
+                        <button className="btn "
                                 onClick={() => handleSort('alias')}>
-                        כינוי
+                            כינוי
                             {sortField === 'alias' && sortOrder === 'asc' && <span> ▴</span>}
                             {sortField === 'alias' && sortOrder === 'desc' && <span>▾</span>}
                         </button>
                     </th>
                     <th  >
-                        <button className="btn btn-link"
+                        <button className="btn "
                                 onClick={() => handleSort('born')}>
-                        נולד
-                        {sortField === 'born' && sortOrder === 'asc' && <span> ▴</span>}
-                        {sortField === 'born' && sortOrder === 'desc' && <span>▾</span>}
+                            נולד
+                            {sortField === 'born' && sortOrder === 'asc' && <span> ▴</span>}
+                            {sortField === 'born' && sortOrder === 'desc' && <span>▾</span>}
                         </button>
                     </th>
                     <th >
-                        <button className="btn btn-link"
+                        <button className="btn "
                                 onClick={() => handleSort('died')}>
-                        נפטר
-                        {sortField === 'died' && sortOrder === 'asc' && <span> ▴</span>}
-                        {sortField === 'died' && sortOrder === 'desc' && <span>▾</span>}
+                            נפטר
+                            {sortField === 'died' && sortOrder === 'asc' && <span> ▴</span>}
+                            {sortField === 'died' && sortOrder === 'desc' && <span>▾</span>}
                         </button>
                     </th>
-                    <th>                        <button className="btn btn-link"
-                                                        onClick={() => handleSort('birthPlace')}>
-                        מקום לידה
-                        {sortField === 'birthPlace' && sortOrder === 'asc' && <span> ▴</span>}
-                        {sortField === 'birthPlace' && sortOrder === 'desc' && <span>▾</span>}
-                    </button>
+                    <th>
+                        <button className="btn "
+                                onClick={() => handleSort('birthPlace')}>
+                            מקום לידה
+                            {sortField === 'birthPlace' && sortOrder === 'asc' && <span> ▴</span>}
+                            {sortField === 'birthPlace' && sortOrder === 'desc' && <span>▾</span>}
+                        </button>
                     </th>
                     <th>
-                        <button className="btn btn-link"
+                        <button className="btn "
                                 onClick={() => handleSort('deathPlace')}>
-                        מקום פטירה
-                        {sortField === 'deathPlace' && sortOrder === 'asc' && <span> ▴</span>}
-                        {sortField === 'deathPlace' && sortOrder === 'desc' && <span>▾</span>}
+                            מקום פטירה
+                            {sortField === 'deathPlace' && sortOrder === 'asc' && <span> ▴</span>}
+                            {sortField === 'deathPlace' && sortOrder === 'desc' && <span>▾</span>}
                         </button>
                     </th>
                     <th>תיאור</th>
-                    <th>קישורים</th>
                     <th>ספריו</th>
                     <th>רבותיו</th>
                     <th>תלמידיו</th>
+                    <th>
+                        <button className="btn "
+                                onClick={() => handleSort('externalLinks')}>
+                            הרחבה
+                            {sortField === 'externalLinks' && sortOrder === 'asc' && <span> ▴</span>}
+                            {sortField === 'externalLinks' && sortOrder === 'desc' && <span>▾</span>}
+                        </button>
+                    </th>
                     <th>פעולה</th>
                 </tr>
                 </thead>

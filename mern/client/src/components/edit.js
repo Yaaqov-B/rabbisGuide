@@ -42,8 +42,6 @@ export default function Edit() {
 
 
   async function onSubmit(e) {
-    console.log('onSubmit')
-
     e.preventDefault();
     const editedPerson = {
       name: form.name,
@@ -68,7 +66,7 @@ export default function Edit() {
       },
     });
 
-    navigate("/");
+    // navigate("/");
   }
 
   const myObject = {
