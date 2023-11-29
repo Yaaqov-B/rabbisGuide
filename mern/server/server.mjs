@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import "./loadEnvironment.mjs";
+// import "./loadEnvironment.mjs";
 import records from "./routes/record.mjs";
 
 const PORT = 5050;

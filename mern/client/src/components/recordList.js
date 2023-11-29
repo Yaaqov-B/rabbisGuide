@@ -55,7 +55,7 @@ const Record = (props) => (
             </td>
             <td>
                 {props.record.externalLinks ?
-                    <Link className="btn btn-link" to={props.record.externalLinks}>עוד מידע</Link>: ""
+                    <Link className="btn btn-link" to={props.record.externalLinks}>עוד מידע</Link>: "1 "
                 }
             </td>
             <td>

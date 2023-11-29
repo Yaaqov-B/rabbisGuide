@@ -8,7 +8,7 @@ from bson.objectid import ObjectId
 
 # Connect to MongoDB database
 mongo_client = pymongo.MongoClient("mongodb+srv://yaaqov:Wh4LEz3fYb3xJYMm@cluster0.f3shytp.mongodb.net/?retryWrites=true&w=majority")
-mongo_db = mongo_client["sample_training3"]
+mongo_db = mongo_client["sample_training4"]
 #
 # # Create MongoDB collection (if not exists)
 collection = mongo_db["records"]
@@ -35,4 +35,6 @@ with open("mydump.json", "r") as f:
 
 # Insert the JSON data into the collection
 for document in data:
+    document["_id"] = ObjectId(document["_id"])
+    # print(document)
     collection.insert_one(document)
