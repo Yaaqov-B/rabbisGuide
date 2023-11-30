@@ -8,6 +8,7 @@ export default function Show() {
   const [record, setRecord] = useState([]);
 
   const [form, setForm] = useState({});
+  const API_URL = process.env.API_URL || "http://localhost:5050";
 
   const params = useParams();
   const navigate = useNavigate();
@@ -85,7 +86,7 @@ export default function Show() {
 
   useEffect(() => {
     async function getRecords() {
-      const response = await fetch(`https://master--toldot.netlify.app/record/`);
+      const response = await fetch(API_URL + `record/`);
 
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
@@ -105,7 +106,7 @@ export default function Show() {
   useEffect(() => {
     async function fetchData() {
       const id = params.id.toString();
-      const response = await fetch(`https://master--toldot.netlify.app/${params.id.toString()}`);
+      const response = await fetch(API_URL + `/${params.id.toString()}`);
 
       if (!response.ok) {
         const message = `An error has occurred: ${response.statusText}`;

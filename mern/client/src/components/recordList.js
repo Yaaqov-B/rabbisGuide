@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import SearchBox from "./search";
 import VisualGraph from "./visualGraph";
 
+const API_URL = process.env.API_URL || "http://localhost:5050";
+
 const Record = (props) => (
     <React.Fragment key={props.record._id}>
         <tr>
@@ -208,7 +210,7 @@ export default function RecordList() {
     // This method fetches the records from the database.
     useEffect(() => {
         async function getRecords() {
-            const response = await fetch(`https://master--toldot.netlify.app/record/`);
+            const response = await fetch(API_URL + `/record/`);
 
             if (!response.ok) {
                 const message = `An error occurred: ${response.statusText}`;
@@ -224,7 +226,7 @@ export default function RecordList() {
     }, [records.length]);
 
     async function deleteRecord(id) {
-        await fetch(`https://master--toldot.netlify.app/record/${id}`, {
+        await fetch(API_URL + `/record/${id}`, {
             method: "DELETE"
         });
 

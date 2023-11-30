@@ -16,6 +16,7 @@ export default function Create() {
         teachers: [],
         students: [],
     });
+    const API_URL = process.env.API_URL || "http://localhost:5050";
 
     const navigate = useNavigate();
 
@@ -33,7 +34,7 @@ export default function Create() {
         // When a post request is sent to the create url, we'll add a new record to the database.
         const newPerson = { ...form };
         console.log(newPerson)
-        await fetch("https://master--toldot.netlify.app/record", {
+        await fetch(API_URL + "record", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

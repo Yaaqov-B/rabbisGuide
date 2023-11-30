@@ -5,6 +5,7 @@ import Rabbi from "./entity";
 export default function Edit() {
 
   const [form, setForm] = useState({});
+  const API_URL = process.env.API_URL || "http://localhost:5050";
 
   const params = useParams();
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ export default function Edit() {
   useEffect(() => {
     async function fetchData() {
       const id = params.id.toString();
-      const response = await fetch(`https://master--toldot.netlify.app/record/${params.id.toString()}`);
+      const response = await fetch(API_URL + `/record/${params.id.toString()}`);
 
       if (!response.ok) {
         const message = `An error has occurred: ${response.statusText}`;
@@ -58,7 +59,7 @@ export default function Edit() {
     };
 
     // This will send a post request to update the data in the database.
-    await fetch(`https://master--toldot.netlify.app/record/${params.id}`, {
+    await fetch(API_URL + `/record/${params.id}`, {
       method: "PATCH",
       body: JSON.stringify(editedPerson),
       headers: {
