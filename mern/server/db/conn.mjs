@@ -8,6 +8,8 @@ let conn;
 try {
   console.log("Connecting to MongoDB Atlas...");
   conn = await client.connect();
+  console.log("Successfully connected to MongoDB Atlas");
+
 } catch(e) {
   console.error(e);
 }
