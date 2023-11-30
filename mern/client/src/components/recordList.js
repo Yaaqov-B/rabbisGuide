@@ -208,7 +208,7 @@ export default function RecordList() {
     // This method fetches the records from the database.
     useEffect(() => {
         async function getRecords() {
-            const response = await fetch(`https://master--toldot.netlify.app:5050/record/`);
+            const response = await fetch(`https://master--toldot.netlify.app/record/`);
 
             if (!response.ok) {
                 const message = `An error occurred: ${response.statusText}`;
@@ -224,7 +224,7 @@ export default function RecordList() {
     }, [records.length]);
 
     async function deleteRecord(id) {
-        await fetch(`https://master--toldot.netlify.app:5050/record/${id}`, {
+        await fetch(`https://master--toldot.netlify.app/record/${id}`, {
             method: "DELETE"
         });
 

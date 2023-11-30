@@ -85,7 +85,7 @@ export default function Show() {
 
   useEffect(() => {
     async function getRecords() {
-      const response = await fetch(`https://master--toldot.netlify.app:5050/record/`);
+      const response = await fetch(`https://master--toldot.netlify.app/record/`);
 
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
@@ -105,7 +105,7 @@ export default function Show() {
   useEffect(() => {
     async function fetchData() {
       const id = params.id.toString();
-      const response = await fetch(`https://master--toldot.netlify.app:5050/${params.id.toString()}`);
+      const response = await fetch(`https://master--toldot.netlify.app/${params.id.toString()}`);
 
       if (!response.ok) {
         const message = `An error has occurred: ${response.statusText}`;

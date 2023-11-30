@@ -33,7 +33,7 @@ export default function Create() {
         // When a post request is sent to the create url, we'll add a new record to the database.
         const newPerson = { ...form };
         console.log(newPerson)
-        await fetch("https://master--toldot.netlify.app:5050/record", {
+        await fetch("https://master--toldot.netlify.app/record", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

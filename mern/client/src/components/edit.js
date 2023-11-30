@@ -20,7 +20,7 @@ export default function Edit() {
   useEffect(() => {
     async function fetchData() {
       const id = params.id.toString();
-      const response = await fetch(`https://master--toldot.netlify.app:5050/record/${params.id.toString()}`);
+      const response = await fetch(`https://master--toldot.netlify.app/record/${params.id.toString()}`);
 
       if (!response.ok) {
         const message = `An error has occurred: ${response.statusText}`;
@@ -58,7 +58,7 @@ export default function Edit() {
     };
 
     // This will send a post request to update the data in the database.
-    await fetch(`https://master--toldot.netlify.app:5050/record/${params.id}`, {
+    await fetch(`https://master--toldot.netlify.app/record/${params.id}`, {
       method: "PATCH",
       body: JSON.stringify(editedPerson),
       headers: {

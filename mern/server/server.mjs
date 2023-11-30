@@ -2,8 +2,13 @@ import express from "express";
 import cors from "cors";
 // import "./loadEnvironment.mjs";
 import records from "./routes/record.mjs";
+// const os = require('os');
+// const hostname = os.hostname();
+// console.log(`Hostname: ${hostname}`);
 
-const PORT = 5050;
+const PORT = process.env.NODEJS_PORT || 5050;
+console.log(`Port: ${PORT}`);
+// const PORT = 5050;
 const app = express();
 
 app.use(cors());
