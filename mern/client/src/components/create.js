@@ -22,9 +22,7 @@ export default function Create() {
 
     function onChangeForm(value) {
         return setForm((prev) => {
-            let newVar = {...prev, ...value};
-            // console.log(newVar)
-            return newVar;
+            return {...prev, ...value};
         })
     }
     // This function will handle the submission.

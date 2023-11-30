@@ -9,7 +9,6 @@ import RecordList from "./components/recordList";
 import Edit from "./components/edit";
 import Show from "./components/show";
 import Create from "./components/create";
-import Playground from "./components/playground";
 import About from "./components/about";
 import Bibliography from "./components/bibliography";
 
@@ -20,7 +19,6 @@ const App = () => {
       <div style={{ margin: 20 }} className={'text-right'}>
       <Routes>
         <Route exact path="/" element={<RecordList />} />
-        <Route exact path="/play" element={<Playground />} />
         <Route exact path="/about" element={<About />} />
         <Route exact path="/bibliography" element={<Bibliography />} />
         <Route path="/edit/:id" element={<Edit />} />

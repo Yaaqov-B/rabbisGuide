@@ -20,7 +20,7 @@ export default function Rabbi(props){
     }
 
     function removeBook(item){
-        const newBooks = props.myProp.form.books.filter(value => value.title != item)
+        const newBooks = props.myProp.form.books.filter(value => value.title !== item)
         updateForm({books:newBooks})
     }
 
@@ -40,7 +40,7 @@ export default function Rabbi(props){
     const removeStudent =(item) =>{
         // console.log(item)
         const newStudents = props.myProp.form.students.filter(value => {
-            return (value.name != item)
+            return (value.name !== item)
         })
         updateForm({students:newStudents})
     }
@@ -59,7 +59,7 @@ export default function Rabbi(props){
     }
 
     const removeTeacher = (item) => {
-        const newTeachers = props.myProp.form.teachers.filter(value => value.name != item)
+        const newTeachers = props.myProp.form.teachers.filter(value => value.name !== item)
         updateForm({teachers:newTeachers})
     }
 

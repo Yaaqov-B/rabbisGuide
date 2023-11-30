@@ -163,7 +163,7 @@ export default function RecordList() {
             setExpandedRowId(rabbi._id);
             setGraph(rabbi)
         }
-    };
+    }
 
     const handleChange = (e) => {
         setSearchTerm(e.target.value);
@@ -185,7 +185,7 @@ export default function RecordList() {
         }
     };
 
-    const sortedData = records.sort((a, b) => {
+    records.sort((a, b) => {
         if (a[sortField] < b[sortField]) {
             return sortOrder === 'asc' ? -1 : 1;
         } else
