@@ -126,7 +126,6 @@ export default function RecordList() {
             }
         }
 
-        // q.push(root);
         if(root.teachers){
             root.teachers.map(teacher=>{
                 edges.push({from: teacher._id, to: root._id});
@@ -153,9 +152,8 @@ export default function RecordList() {
             }
         }
         setElements({'nodes':nodes, 'edges':edges})
-
-        // elements.current = {'nodes':nodes, 'edges':edges}
     }
+
     function handleExpand(rabbi){
         if (expandedRowId === rabbi._id) {
             setExpandedRowId(null);
