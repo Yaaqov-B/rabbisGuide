@@ -10,6 +10,7 @@ import chardet
 import codecs
 from pyvis.network import Network
 from bson.objectid import ObjectId
+import os
 
 
 def get_documents():
@@ -44,7 +45,10 @@ def create_graph(data, directed=False):
 
 
 def load_data(data):
-    mongo_client = pymongo.MongoClient("mongodb+srv://yaaqov:Wh4LEz3fYb3xJYMm@cluster0.f3shytp.mongodb.net/?retryWrites=true&w=majority")
+    url = os.getenv('ATLAS_URI')
+    print(url)
+    # Connect to MongoDB database
+    mongo_client = pymongo.MongoClient(url)
     mongo_db = mongo_client["sample_training5"]
     collection = mongo_db["records"]
     for d in data:

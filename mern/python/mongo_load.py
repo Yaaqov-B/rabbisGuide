@@ -6,8 +6,12 @@ import codecs
 
 from bson.objectid import ObjectId
 
+import os
+url = os.getenv('ATLAS_URI')
+print(url)
 # Connect to MongoDB database
-mongo_client = pymongo.MongoClient("mongodb+srv://yaaqov:Wh4LEz3fYb3xJYMm@cluster0.f3shytp.mongodb.net/?retryWrites=true&w=majority")
+mongo_client = pymongo.MongoClient(url)
+
 mongo_db = mongo_client["sample_training4"]
 #
 # # Create MongoDB collection (if not exists)

@@ -1,7 +1,7 @@
 import pymongo
 import pymysql
 from bson.objectid import ObjectId
-
+import os
 # Connect to MySQL database
 mysql_db = pymysql.connect(host="localhost", user="root", database="guide")
 mysql_cursor = mysql_db.cursor()
@@ -10,8 +10,11 @@ mysql_cursor = mysql_db.cursor()
 mysql_cursor.execute("SELECT * FROM rabbi_extend")
 mysql_data = mysql_cursor.fetchall()
 
+
+url = os.getenv('ATLAS_URI')
+print(url)
 # Connect to MongoDB database
-mongo_client = pymongo.MongoClient("mongodb+srv://yaaqov:Wh4LEz3fYb3xJYMm@cluster0.f3shytp.mongodb.net/?retryWrites=true&w=majority")
+mongo_client = pymongo.MongoClient(url)
 mongo_db = mongo_client["sample_training2"]
 #
 # # Create MongoDB collection (if not exists)

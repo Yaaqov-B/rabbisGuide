@@ -2,9 +2,11 @@ import pymongo
 import json
 import bson
 from bson.objectid import ObjectId
-
+import os
+url = os.getenv('ATLAS_URI')
+print(url)
 # Connect to MongoDB database
-mongo_client = pymongo.MongoClient("mongodb+srv://yaaqov:Wh4LEz3fYb3xJYMm@cluster0.f3shytp.mongodb.net/?retryWrites=true&w=majority")
+mongo_client = pymongo.MongoClient(url)
 mongo_db = mongo_client["sample_training4"]
 #
 # # Create MongoDB collection (if not exists)
@@ -19,7 +21,7 @@ collection = mongo_db["records"]
 #         f.write(bson.BSON.encode(document))
 
 # Create the dump file path
-dump_file_path = "db/29nov23.json"
+dump_file_path = "db/30nov23.json"
 
 # Create a file stream to write the dump to
 with open(dump_file_path, "w") as f:
